@@ -1,2 +1,5 @@
 // Global app controller
-import num from "./test";
+import x from "./test";
+const yaba = 22;
+
+console.log(`this is a ${x} & ${yaba}`);

@@ -1,5 +1,6 @@
 // Global app controller
-import axios from "axios";
+import "../scss/main.scss";
+import { axios } from "./vendor";
 
 async function getResults(query) {
    try {

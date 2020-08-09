@@ -12,12 +12,12 @@ module.exports = {
             use: ["html-loader"],
          },
          {
-            test: /\.(svg|png|jpg|gif)$/,
+            test: /\.(svg|ico|png|jpg|gif)$/,
             use: {
                loader: "file-loader",
                options: {
                   outputPath: "img",
-                  name: "[name].[hash].[ext]",
+                  name: "[name].[ext]",
                },
             },
          },

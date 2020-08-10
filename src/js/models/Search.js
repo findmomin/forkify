@@ -1,6 +1,6 @@
 import { axios } from "../vendor";
 
-export default class Search {
+export class Search {
    constructor(query) {
       this.query = query;
    }

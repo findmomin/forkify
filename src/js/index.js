@@ -28,11 +28,11 @@ const controlSearch = async () => {
       await state.search.getResults();
 
       // Render results on UI
-      // console.log(state.search.result);
       searchView.renderResults(state.search.result);
    }
 };
 
+// The Search controller
 elements.searchForm.addEventListener("submit", (event) => {
    event.preventDefault();
    controlSearch();

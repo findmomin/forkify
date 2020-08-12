@@ -53,7 +53,7 @@ const createButton = (page, type) => {
    }>
    <span>Page ${type === "prev" ? page - 1 : page + 1}</span>
       <svg class="search__icon">
-         <use href="img/icons.svg#icon-triangle-${
+         <use href="img/icons.1c2ce2be29841c292917ca57a84a634c.svg#icon-triangle-${
             type === "prev" ? "left" : "right"
          }"></use>
       </svg>

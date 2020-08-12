@@ -10,8 +10,8 @@ export class Search {
       try {
          const res = await axios(`${APISearch}${this.query}`);
          this.result = res.data.recipes;
-      } catch (error) {
-         alert(error);
+      } catch (err) {
+         alert(err);
       }
    }
 }

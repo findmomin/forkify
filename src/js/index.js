@@ -2,6 +2,7 @@
 import "../scss/main.scss";
 import { elements, renderLoader, clearLoader } from "./views/base";
 import { Search } from "./models/Search";
+import { Recipe } from "./models/Recipe";
 import * as searchView from "./views/searchView";
 
 /* Global State of the App
@@ -12,6 +13,7 @@ import * as searchView from "./views/searchView";
  */
 const state = {};
 
+// The Search controller
 const controlSearch = async () => {
    // Get Query form view
    const query = searchView.getInput();
@@ -34,7 +36,6 @@ const controlSearch = async () => {
    }
 };
 
-// The Search controller
 elements.searchForm.addEventListener("submit", (event) => {
    event.preventDefault();
    controlSearch();
@@ -50,3 +51,9 @@ elements.searchResPages.addEventListener("click", (event) => {
       searchView.renderResults(state.search.result, goToPage);
    }
 });
+
+// The Recipe controller
+const res = new Recipe(47746);
+res.getRecipe();
+
+console.log(res);

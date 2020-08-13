@@ -15,77 +15,88 @@ const state = {};
 
 // The Search controller
 const controlSearch = async () => {
-   // Get Query form view
-   const query = searchView.getInput();
+  // Get Query form view
+  //   const query = searchView.getInput();
+  //   TEST
+  const query = "pizza";
 
-   if (query) {
-      // New search object and add to state
-      state.search = new Search(query);
+  if (query) {
+    // New search object and add to state
+    state.search = new Search(query);
 
-      // Prepare UI for result
-      searchView.clearInput();
-      searchView.clearResults();
-      renderLoader(elements.searchRes);
+    // Prepare UI for result
+    searchView.clearInput();
+    searchView.clearResults();
+    renderLoader(elements.searchRes);
 
-      try {
-         // Search for recipes (make an API call)
-         await state.search.getResults();
+    try {
+      // Search for recipes (make an API call)
+      await state.search.getResults();
 
-         // Render results on UI
-         clearLoader();
-         searchView.renderResults(state.search.result);
-      } catch (err) {
-         alert(err);
-         clearLoader();
-      }
-   }
+      // Render results on UI
+      clearLoader();
+      searchView.renderResults(state.search.result);
+    } catch (err) {
+      alert(err);
+      clearLoader();
+    }
+  }
 };
 
 // The Search controller
 elements.searchForm.addEventListener("submit", (event) => {
-   event.preventDefault();
-   controlSearch();
+  event.preventDefault();
+  controlSearch();
 });
 
+// TEST
+window.addEventListener("load", (event) => {
+  event.preventDefault();
+  controlSearch();
+});
+
+// Pagination
 elements.searchResPages.addEventListener("click", (event) => {
-   const btn = event.target.closest(".btn-inline");
+  const btn = event.target.closest(".btn-inline");
 
-   if (btn) {
-      const goToPage = parseInt(btn.dataset.goto, 10);
-      searchView.clearResults();
+  if (btn) {
+    const goToPage = parseInt(btn.dataset.goto, 10);
+    searchView.clearResults();
 
-      searchView.renderResults(state.search.result, goToPage);
-   }
+    searchView.renderResults(state.search.result, goToPage);
+  }
 });
 
 // The Recipe controller
 const controlRecipe = async () => {
-   // Get ID form URL
-   const id = window.location.hash.replace("#", "");
+  // Get ID form URL
+  const id = window.location.hash.replace("#", "");
 
-   if (id) {
-      // Prepare UI for changes
+  if (id) {
+    // Prepare UI for changes
 
-      // Create new Recipe object
-      state.recipe = new Recipe(id);
+    // Create new Recipe object
+    state.recipe = new Recipe(id);
 
-      try {
-         // Get Recipe data
-         await state.recipe.getRecipe();
+    try {
+      // Get Recipe data
+      await state.recipe.getRecipe();
 
-         // Calculate time and servings
-         state.recipe.calcTime();
-         state.recipe.calcServings();
+      // Calculate time and servings
+      state.recipe.calcTime();
+      state.recipe.calcServings();
 
-         // Render Recipe
-         console.log(state.recipe);
-      } catch (err) {
-         alert(err);
-      }
-   }
+      // Render Recipe
+      state.recipe.parseIngredients();
+
+      console.log(state.recipe);
+    } catch (err) {
+      alert(err);
+    }
+  }
 };
 
 // The Recipe controller
 ["hashchange", "load"].forEach((event) =>
-   window.addEventListener(event, controlRecipe)
+  window.addEventListener(event, controlRecipe)
 );

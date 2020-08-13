@@ -68,6 +68,7 @@ export class Recipe {
       ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
 
       // Parse ingredients into count, unit and ingredient
+
       return ingredient;
     });
 

@@ -16,7 +16,8 @@ export class Recipe {
       this.url = res.data.recipe.source_url;
       this.ingredients = res.data.recipe.ingredients;
     } catch (err) {
-      alert(err);
+      console.log(err);
+      alert("Something went wrong :(");
     }
   }
 
@@ -59,7 +60,6 @@ export class Recipe {
     const newIngredients = this.ingredients.map((element) => {
       // Uniform Units
       let ingredient = element.toLowerCase();
-
       unitsLong.forEach((unit, i) => {
         ingredient = ingredient.replace(unit, unitsShort[i]);
       });
@@ -67,12 +67,46 @@ export class Recipe {
       // Remove parentheses and its content
       ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
 
-      // Parse ingredients into count, unit and ingredient
+      // Parse ingredients into count, unit and ingredients
+      const arrIng = ingredient.split(" ");
+      const unitIndex = arrIng.findIndex((element2) => {
+        return unitsShort.includes(element2);
+      });
 
-      return ingredient;
+      let objIng;
+
+      if (unitIndex > -1) {
+        const arrCount = arrIng.slice(0, unitIndex);
+        let count;
+
+        if (arrCount.length === 1) {
+          count = eval(arrIng[0].replace("-", "+"));
+        } else {
+          count = eval(arrIng.slice(0, unitIndex).join("+"));
+        }
+
+        objIng = {
+          count,
+          unit: arrIng[unitIndex],
+          ingredient: arrIng.slice(unitIndex + 1).join(" "),
+        };
+      } else if (parseInt(arrIng[0], 10)) {
+        objIng = {
+          count: parseInt(arrIng[0], 10),
+          unit: "",
+          ingredient: arrIng.slice(1).join(" "),
+        };
+      } else if (unitIndex === -1) {
+        objIng = {
+          count: 1,
+          unit: "",
+          ingredient,
+        };
+      }
+
+      return objIng;
     });
 
     this.ingredients = newIngredients;
-    console.log(this.ingredients);
   }
 }

@@ -1,36 +1,48 @@
 import { elements } from "./base";
 
 export const getInput = () => {
-   const input = elements.searchInput.value;
-   return input;
+  const input = elements.searchInput.value;
+  return input;
 };
 
 export const clearInput = () => {
-   elements.searchInput.value = "";
+  elements.searchInput.value = "";
 };
 
 export const clearResults = () => {
-   elements.searchResList.innerHTML = "";
-   elements.searchResPages.innerHTML = "";
+  elements.searchResList.innerHTML = "";
+  elements.searchResPages.innerHTML = "";
+};
+
+export const highlightSeletcted = (id) => {
+  const resultsArr = Array.from(
+    document.querySelectorAll(".results__link")
+  ).forEach((el) => {
+    el.classList.remove("results__link--active");
+  });
+
+  document
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add("results__link--active");
 };
 
 const limitRecipeTitle = (title, limit = 17) => {
-   if (title.length > limit) {
-      const newTitle = [];
+  if (title.length > limit) {
+    const newTitle = [];
 
-      title.split(" ").reduce((acc, cur) => {
-         if (acc + cur.length <= limit) {
-            newTitle.push(cur);
-         }
-         return acc + cur.length;
-      }, 0);
-      return `${newTitle.join(" ")}...`;
-   }
-   return title;
+    title.split(" ").reduce((acc, cur) => {
+      if (acc + cur.length <= limit) {
+        newTitle.push(cur);
+      }
+      return acc + cur.length;
+    }, 0);
+    return `${newTitle.join(" ")}...`;
+  }
+  return title;
 };
 
 const renderRecipe = (recipe) => {
-   const markup = `
+  const markup = `
    <li>
       <a class="results__link" href="#${recipe.recipe_id}">
          <figure class="results__fig">
@@ -43,18 +55,18 @@ const renderRecipe = (recipe) => {
       </a>
    </li>
    `;
-   elements.searchResList.insertAdjacentHTML("beforeend", markup);
+  elements.searchResList.insertAdjacentHTML("beforeend", markup);
 };
 
 const createButton = (page, type) => {
-   return `
+  return `
    <button class="btn-inline results__btn--${type}" data-goto=${
-      type === "prev" ? page - 1 : page + 1
-   }>
+    type === "prev" ? page - 1 : page + 1
+  }>
    <span>Page ${type === "prev" ? page - 1 : page + 1}</span>
       <svg class="search__icon">
          <use href="img/icons.1c2ce2be29841c292917ca57a84a634c.svg#icon-triangle-${
-            type === "prev" ? "left" : "right"
+           type === "prev" ? "left" : "right"
          }"></use>
       </svg>
    </button>
@@ -62,35 +74,35 @@ const createButton = (page, type) => {
 };
 
 const renderButtons = (page, numResults, resPerPage) => {
-   const pages = Math.ceil(numResults / resPerPage);
-   let button;
+  const pages = Math.ceil(numResults / resPerPage);
+  let button;
 
-   if (page === 1 && pages > 1) {
-      // Button to go to only the next page
-      button = createButton(page, "next");
-   } else if (page < pages) {
-      // Button to go to both pages
-      button = `
+  if (page === 1 && pages > 1) {
+    // Button to go to only the next page
+    button = createButton(page, "next");
+  } else if (page < pages) {
+    // Button to go to both pages
+    button = `
       ${createButton(page, "prev")}
       ${createButton(page, "next")}
       `;
-   } else if (page === pages && pages > 1) {
-      // Button to go to only the previous page
-      button = createButton(page, "prev");
-   }
+  } else if (page === pages && pages > 1) {
+    // Button to go to only the previous page
+    button = createButton(page, "prev");
+  }
 
-   // Renders buttons
-   elements.searchResPages.insertAdjacentHTML("afterbegin", button);
+  // Renders buttons
+  elements.searchResPages.insertAdjacentHTML("afterbegin", button);
 };
 
 export const renderResults = (recipes, page = 1, resPerPage = 10) => {
-   const start = (page - 1) * resPerPage;
-   const end = page * resPerPage;
+  const start = (page - 1) * resPerPage;
+  const end = page * resPerPage;
 
-   recipes.slice(start, end).forEach((element) => {
-      renderRecipe(element);
-   });
+  recipes.slice(start, end).forEach((element) => {
+    renderRecipe(element);
+  });
 
-   // Renders button for pages
-   renderButtons(page, recipes.length, resPerPage);
+  // Renders button for pages
+  renderButtons(page, recipes.length, resPerPage);
 };

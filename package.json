@@ -32,10 +32,11 @@
       "webpack-merge": "^4.2.1"
    },
    "dependencies": {
-      "clean-webpack-plugin": "^2.0.0",
       "axios": "^0.19.2",
       "babel-polyfill": "^6.26.0",
+      "clean-webpack-plugin": "^2.0.0",
       "core-js": "^3.6.5",
+      "fractional": "^1.0.0",
       "regenerator-runtime": "^0.13.7"
    }
 }

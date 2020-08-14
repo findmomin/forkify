@@ -50,12 +50,6 @@ elements.searchForm.addEventListener("submit", (event) => {
   controlSearch();
 });
 
-// TEST
-window.addEventListener("load", (event) => {
-  event.preventDefault();
-  controlSearch();
-});
-
 // Pagination
 elements.searchResPages.addEventListener("click", (event) => {
   const btn = event.target.closest(".btn-inline");
@@ -79,7 +73,7 @@ const controlRecipe = async () => {
     renderLoader(elements.recipe);
 
     // Highlight selected result
-    if (state.search) {
+    if (state.search && state.search.result) {
       searchView.highlightSeletcted(id);
     }
 
@@ -104,7 +98,15 @@ const controlRecipe = async () => {
   }
 };
 
-// The Recipe controller
-["hashchange", "load"].forEach((event) =>
-  window.addEventListener(event, controlRecipe)
-);
+const init = () => {
+  window.addEventListener("load", (event) => {
+    event.preventDefault();
+    controlSearch();
+  });
+
+  ["hashchange", "load"].forEach((event) =>
+    window.addEventListener(event, controlRecipe)
+  );
+};
+
+init();

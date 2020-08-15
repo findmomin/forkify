@@ -120,6 +120,7 @@ elements.recipe.addEventListener("click", (e) => {
 });
 
 // List Controller
+window.l = new List();
 
 // Test
 const init = () => {

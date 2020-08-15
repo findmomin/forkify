@@ -118,6 +118,7 @@ elements.recipe.addEventListener("click", (e) => {
   }
 });
 
+// Test
 const init = () => {
   window.addEventListener("load", (event) => {
     event.preventDefault();

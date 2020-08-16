@@ -100,7 +100,7 @@ export const renderRecipe = (recipe) => {
            .join("")}
       </ul>
 
-      <button class="btn-small recipe__btn">
+      <button class="btn-small recipe__btn recipe__btn--add">
          <svg class="search__icon">
             <use href="img/icons.1c2ce2be29841c292917ca57a84a634c.svg#icon-shopping-cart"></use>
          </svg>

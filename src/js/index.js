@@ -7,6 +7,7 @@ import { List } from "./models/List";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
 import * as listView from "./views/listView";
+import Likes from "./models/Likes";
 
 /* Global State of the App
  * - Search Object
@@ -118,7 +119,11 @@ elements.recipe.addEventListener("click", (e) => {
     state.recipe.updateServings("inc");
     recipeView.updateServingsIng(state.recipe);
   } else if (e.target.matches(".recipe__btn--add, .recipe__btn--add *")) {
+    // Add ingredients to shopping list
     controlList();
+  } else if (e.target.matches(".recipe__love, .recipe__love *")) {
+    // Like controller
+    controllLike();
   }
 });
 
@@ -151,6 +156,41 @@ elements.shopping.addEventListener("click", (e) => {
     state.list.updateCount(id, val);
   }
 });
+
+// Likes controller
+const controllLike = () => {
+  if (!state.likes) {
+    state.likes = new Likes();
+  }
+
+  const currentID = state.recipe.id;
+
+  // If user hasn't liked the recipe
+  if (!state.likes.isLiked(currentID)) {
+    // Add like to the state
+    const newLike = state.likes.addLike(
+      currentID,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.img
+    );
+
+    // Toggle the like button
+
+    // Add like to the UI
+    console.log(state.likes);
+
+    // If user has liked the recipe
+  } else {
+    // Remove like from the state
+    state.likes.deleteLike(currentID);
+
+    // Toggle the like button
+
+    // Remove like to the UI
+    console.log(state.likes);
+  }
+};
 
 // Test
 const init = () => {

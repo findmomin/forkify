@@ -1,4 +1,5 @@
-import { axios } from "../vendor";
+// import { axios } from "../vendor";
+import axios from "axios";
 import { APIRecipe } from "../config";
 
 export class Recipe {

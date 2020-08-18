@@ -206,13 +206,23 @@ const init = () => {
 
     state.likes.readStorage();
 
-    // Toggle like menu
-    likesView.toggleLikeMenu(state.likes.getNumLikes());
-
     // Render the existing likes
     state.likes.likes.forEach((like) => {
       likesView.renderLike(like);
     });
+
+    // Restore List items on page load
+    state.list = new List();
+
+    state.list.readStorage();
+
+    // Render the existing lists
+    state.list.items.forEach((item) => {
+      listView.renderItem(item);
+    });
+
+    // Toggle like menu
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
   });
 
   ["hashchange", "load"].forEach((event) =>

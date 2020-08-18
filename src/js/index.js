@@ -16,14 +16,16 @@ import Likes from "./models/Likes";
  * - Shopping List Objects
  * - Liked Recipes
  */
+
 const state = {};
 
 // The Search controller
 const controlSearch = async () => {
   // Get Query form view
-  //   const query = searchView.getInput();
+  const query = searchView.getInput();
+
   //   TEST
-  const query = "pizza";
+  // const query = "pizza";
 
   if (query) {
     // New search object and add to state
@@ -77,8 +79,8 @@ const controlRecipe = async () => {
     renderLoader(elements.recipe);
 
     // Highlight selected result
-    if (state.search && state.search.result) {
-      searchView.highlightSeletcted(id);
+    if (state.search && state.search.result && !state.likes) {
+      searchView.highlightSelected(id);
     }
 
     // Create new Recipe object

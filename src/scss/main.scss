@@ -13,6 +13,7 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
+
 @media only screen and (max-width: 68.75em) {
   html {
     font-size: 50%;
@@ -31,22 +32,54 @@ body {
 
 .container {
   max-width: 120rem;
-  min-height: 100vh;
   margin: 4vw auto;
   background-color: #fff;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 2rem 6rem 0.5rem rgba(101, 90, 86, 0.2);
   display: grid;
-  grid-template-rows: 10rem minmax(100rem, auto);
+  grid-template-rows: minmax(10rem, 1fr) minmax(100vh, auto);
   grid-template-columns: 1.1fr 2fr 1.1fr;
   grid-template-areas: "head head head" "list recipe shopping";
+
+  @media only screen and (max-width: 37.5em) {
+    grid-template-rows: minmax(min-content, 10rem) repeat(3, max-content);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "head head head"
+      "list list list"
+      "recipe recipe recipe"
+      "shopping shopping shopping" !important;
+  }
 }
+
 @media only screen and (max-width: 68.75em) {
   .container {
     max-width: 100vw;
     margin: 0 auto;
     border-radius: 0;
+  }
+}
+
+@media only screen and (max-width: 53.125em) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media only screen and (max-width: 43.75em) {
+  html {
+    font-size: 35%;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  html {
+    font-size: 30%;
+
+    .container :not(:first-child) > * {
+      font-size: 120%;
+    }
   }
 }
 
@@ -208,6 +241,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: 37.5em) {
+    html {
+      font-size: 30%;
+    }
+  }
 }
 .header__logo {
   margin-left: 4rem;
@@ -281,11 +320,17 @@ body {
   opacity: 0;
   transition: all 0.5s 0.2s;
 }
+.results {
+  @media only screen and (max-width: 37.5em) {
+    grid-area: list;
+  }
+}
 
 .results,
 .likes {
   padding: 3rem 0;
 }
+
 .results__list,
 .likes__list {
   list-style: none;
@@ -300,6 +345,11 @@ body {
   transition: all 0.3s;
   border-right: 1px solid #fff;
   text-decoration: none;
+
+  @media only screen and (max-width: 37.5em) {
+    @media only screen and (max-width: 37.5em) {
+    }
+  }
 }
 .results__link:hover,
 .likes__link:hover {
@@ -379,6 +429,10 @@ body {
 .recipe {
   background-color: #f9f5f3;
   border-top: 1px solid #fff;
+
+  @media only screen and (max-width: 37.5em) {
+    grid-area: recipe;
+  }
 }
 .recipe__fig {
   height: 30rem;
@@ -540,6 +594,10 @@ body {
   padding: 3rem 4rem;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 37.5em) {
+    grid-area: shopping;
+  }
 }
 .shopping__list {
   list-style: none;
